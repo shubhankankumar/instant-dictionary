@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Instant Dictionary</title>
+  <link rel="stylesheet" href="card.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      width: 340px;
+      background: #111;
+      color: #e0e0e0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+      padding: 16px;
+    }
+    .id-search-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .id-search-row input {
+      flex: 1;
+      padding: 8px 12px;
+      border: 1px solid #333;
+      border-radius: 8px;
+      background: #000;
+      color: #e0e0e0;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .id-search-row input:focus {
+      border-color: #fff;
+    }
+    .id-search-row input::placeholder {
+      color: #666;
+    }
+    .id-search-row button {
+      padding: 8px 14px;
+      border: none;
+      border-radius: 8px;
+      background: #fff;
+      color: #111;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .id-search-row button:hover {
+      background: #ccc;
+    }
+    #result {
+      min-height: 40px;
+    }
+  </style>
+</head>
+<body>
+  <form class="id-search-row" id="searchForm">
+    <input type="text" id="wordInput" placeholder="Type a word..." aria-label="Word to look up" maxlength="50" autocomplete="off" autofocus />
+    <button type="submit">Search</button>
+  </form>
+  <div id="result" aria-live="polite"></div>
+  <script src="render.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

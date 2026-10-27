@@ -1,0 +1,129 @@
+/* .id-popup is the in-page frame; the .id-* card styles are shared with popup.html. */
+.id-popup,
+.id-popup * {
+  all: initial;
+  display: revert;
+  box-sizing: border-box;
+}
+
+.id-popup {
+  all: initial;
+  position: fixed;
+  z-index: 2147483647;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #111;
+  color: #e0e0e0;
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 16px 18px;
+  max-width: 380px;
+  min-width: 220px;
+  max-height: calc(100vh - 20px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+.id-loading {
+  width: 24px;
+  height: 24px;
+  border: 3px solid #333;
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: id-spin 0.7s linear infinite;
+  margin: 8px auto;
+}
+
+@keyframes id-spin {
+  to { transform: rotate(360deg); }
+}
+
+.id-word {
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 2px;
+}
+
+.id-phonetic {
+  font-size: 13px;
+  color: #999;
+  font-style: italic;
+  margin-bottom: 8px;
+}
+
+.id-audio-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #222;
+  border: none;
+  color: #e0e0e0;
+  font-size: 18px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  margin-bottom: 10px;
+}
+
+.id-audio-btn:hover {
+  background: #444;
+  transform: scale(1.1);
+}
+
+.id-audio-btn:active {
+  transform: scale(0.95);
+}
+
+.id-pos {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #ccc;
+  background: #222;
+  padding: 1px 8px;
+  border-radius: 4px;
+  margin-bottom: 4px;
+}
+
+.id-def {
+  font-size: 14px;
+  color: #e0e0e0;
+  margin-bottom: 6px;
+}
+
+.id-example {
+  font-size: 13px;
+  color: #777;
+  font-style: italic;
+  border-left: 2px solid #444;
+  padding-left: 10px;
+  margin-bottom: 6px;
+}
+
+.id-synonyms {
+  font-size: 12px;
+  color: #999;
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+
+.id-more {
+  font-size: 14px;
+  color: #555;
+  text-align: center;
+  letter-spacing: 2px;
+  margin-bottom: 4px;
+}
+
+.id-not-found {
+  color: #ff6b6b;
+  font-size: 14px;
+  margin-top: 4px;
+}
