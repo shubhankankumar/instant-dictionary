@@ -27,6 +27,7 @@ test("cleanWord", () => {
 test("stripHtml removes tags and decodes entities", () => {
   assert.equal(stripHtml('<a href="x">big</a> &amp; <img src=x onerror=alert(1)>tall&#x21;'), "big & tall!");
   assert.equal(stripHtml("&#99999999;"), "&#99999999;");
+  assert.equal(stripHtml("&constructor; &__proto__;"), "&constructor; &__proto__;");
 });
 
 test("a failing fallback does not sink a later success", async () => {

@@ -17,7 +17,7 @@ const DATAMUSE_POS = {
   u: "interjection",
 };
 
-const ENTITIES = { amp: "&", lt: "<", gt: ">", quot: '"', apos: "'", nbsp: " " };
+const ENTITIES = { __proto__: null, amp: "&", lt: "<", gt: ">", quot: '"', apos: "'", nbsp: " " };
 
 const inFlight = new Map();
 
