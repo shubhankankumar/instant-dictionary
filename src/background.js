@@ -14,7 +14,16 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
   chrome.tabs.sendMessage(tab.id, { type: "show", text }, { frameId: 0 }).catch(() => {});
 });
 
+// The in-page card lives in a closed shadow root, so its CSS travels by message instead of being a
+// web-accessible file (which any site could probe to detect the extension).
+let cardCss;
+
 chrome.runtime.onMessage.addListener((msg, _sender, sendResponse) => {
+  if (msg?.type === "css") {
+    cardCss ??= fetch(chrome.runtime.getURL("src/card.css")).then((r) => r.text());
+    cardCss.then(sendResponse, () => sendResponse(""));
+    return true;
+  }
   if (msg?.type !== "lookup") return;
   lookupWord(msg.text).then(
     (entry) => sendResponse({ entry }),

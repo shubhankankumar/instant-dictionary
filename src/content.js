@@ -1,10 +1,14 @@
 {
+  // The card sits in a closed shadow root on its own element: page CSS can't restyle it,
+  // and page scripts can't read it (so a site can't see which words you look up).
+  let host = null;
   let popup = null;
   let requestId = 0;
+  let css = null;
 
   function close() {
-    popup?.remove();
-    popup = null;
+    host?.remove();
+    host = popup = null;
   }
 
   function place(x, y) {
@@ -17,12 +21,20 @@
     close();
     if (!DictUI.hasLetter(text)) return;
     const id = ++requestId;
+    css ??= chrome.runtime.sendMessage({ type: "css" });
+    const style = document.createElement("style");
+    style.textContent = await css;
+    if (id !== requestId) return; // superseded while the stylesheet loaded
+    host = document.createElement("instant-dictionary");
+    host.style.cssText = "all: initial";
+    const root = host.attachShadow({ mode: "closed" });
     popup = document.createElement("div");
     popup.className = "id-popup";
     popup.setAttribute("role", "dialog");
     popup.setAttribute("aria-label", "Dictionary");
     popup.append(DictUI.spinner());
-    (document.body || document.documentElement).append(popup);
+    root.append(style, popup);
+    (document.body || document.documentElement).append(host);
     place(x, y);
     const content = await DictUI.lookup(text);
     if (id !== requestId || !popup) return; // closed or superseded meanwhile
@@ -44,7 +56,8 @@
   });
 
   document.addEventListener("click", (e) => {
-    if (popup && !popup.contains(e.target)) close();
+    // A click inside the shadow root reaches the page with the host element as its target.
+    if (host && e.target !== host) close();
   });
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") close();
